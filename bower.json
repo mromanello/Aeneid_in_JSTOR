@@ -1,0 +1,22 @@
+{
+  "name": "bower.json",
+  "authors": [
+    "mromanello <matteo.romanello@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "3.5",
+    "bootstrap": "^3.3.7"
+  }
+}

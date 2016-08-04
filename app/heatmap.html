@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <style>
+      rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+      text.label {
+        font-size: 8pt;
+        font-family: Consolas, courier;
+        fill: #000;
+      }
+    </style>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="js/main.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body onload="initViz()">
+    <div class="container-fluid">
+      <!-- the page header -->
+      <div class="page-header">
+        <h1>Vergil's Aeneid in JSTOR</h1>
+        <p class="lead">An interactive visualization of quotations of and references to the Aeneid found within articles in JSTOR.</p>
+      </div>
+      <!-- the main viewport, divided into 3 columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <div id="chart"></div>
+        </div>
+        <div class="col-md-3">
+          <div id="text">
+           (here goes the text)
+          </div>
+        </div>
+        <div class="col-md-5">
+          (here will go the results)
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "d3": "3.5",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "d3-tip": "^0.6.7"
   }
 }

@@ -1,5 +1,8 @@
-for the implementation of heatmpas in d3 follow => <http://bl.ocks.org/tjdecke/5558084>
 
+## Next Steps
+
+* get text of Aeneid from .xml file instead of CTS API
+* implement click-event on heatmap => highlights text on middle column
 
 ## how the visualisation should work
 
@@ -21,3 +24,4 @@ Results display:
 ## Useful links/resources
 
 * for tooltips in d3.js see => http://labratrevenge.com/d3-tip/
+* for the implementation of heatmaps in d3 follow => <http://bl.ocks.org/tjdecke/5558084>

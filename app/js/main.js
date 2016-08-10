@@ -5,7 +5,7 @@ function initViz(){
       createIndex(data);
       });
 
-    d3.json("/data/aeneid.json", function(error, data) {
+    d3.json("/data/perseus_aeneid.json", function(error, data) {
       if (error) return console.warn(error);
       loadText(data);
       });
@@ -77,8 +77,6 @@ function initViz(){
           })
           ;
 
-      //cells.append("title");
-
       cells.enter().append("rect")
           .attr("x", function(d) { return (d.book - 1) * gridSize; })
           .attr("y", function(d) { return (chunks[d.chunk] - 1) * gridSize; })
@@ -87,7 +85,13 @@ function initViz(){
           .attr("class", "bordered")
           .attr("width", gridSize)
           .attr("height", gridSize)
-          .style("fill", colors[0]);
+          .style("fill", colors[0])
+          .on("click",function(d){
+            d3.selectAll(".chunk")
+              .style("display",function(el){
+                return ((el.book == d.book && el.chunk == d.chunk) ? "block" : "none");
+              });
+          });
     };
 
     function loadText(textData){

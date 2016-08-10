@@ -9,8 +9,9 @@ import codecs
 
 endpoint = "http://cts.perseids.org/api/cts"
 cts = cts5.CTS(endpoint)
-urn = "urn:cts:latinLit:phi0690.phi003"
 work_urn = "urn:cts:latinLit:phi0690.phi003"
+"""
+urn = "urn:cts:latinLit:phi0690.phi003:1.1"
 passage = xmlparser(cts.getPassage(urn=urn))
 passage.xpath("//tei:l",namespaces=MyCapytain.common.utils.NS)[0].text
 
@@ -18,6 +19,7 @@ urn = "urn:cts:latinLit:phi0690.phi003:1.334"
 text = Text(urn=urn, resource=cts)
 passage = text.getPassage()
 print passage.text()
+"""
 
 book_upper_boundaries = {
 	1:756
@@ -52,7 +54,7 @@ def fetch_text(urn, cts_client):
 		print "there was a problem fetching %s"%urn
 
 text = []
-for book_number in sorted(book_upper_boundaries.keys())[:1]:
+for book_number in sorted(book_upper_boundaries.keys()):
     max_line_number = book_upper_boundaries[book_number]
     for range_start,range_end in bins.keys():
     	chunk = {

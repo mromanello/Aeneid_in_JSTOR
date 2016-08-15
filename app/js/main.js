@@ -1,8 +1,42 @@
-function initViz(){
+function initViz(){ 
+
+    var books = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+    /*
+    maps the chunks to an index 
+    */
+    var chunks = {
+        '1-50':1,
+        '51-100':2,
+        '101-150':3,
+        '151-200':4,
+        '201-250':5, 
+        '251-300':6, 
+        '301-350':7,
+        '351-400':8,
+        '401-450':9,
+        '451-500':10,
+        '501-550':11,
+        '551-600':12,
+        '601-650':13,
+        '651-700':14,
+        '701-750':15,
+        '751-800':16,
+        '801-850':17,
+        '851-900':18,
+        '901-950':19,
+        '951-1000':20
+    }
+
+    $('#datafilter').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
+      var dataFilter = $("option:selected").text();
+      updateIndex(dataFilter);
+    });
+
     // load the data
-    d3.json("/data/quot_freq_empty2.json", function(error, data) {
+    d3.json("/data/test.json", function(error, data) {
       if (error) return console.warn(error);
       createIndex(data);
+      // TODO: pre-load the results into the HTML
       });
 
     d3.json("/data/perseus_aeneid.json", function(error, data) {
@@ -10,46 +44,25 @@ function initViz(){
       loadText(data);
       });
 
+    function updateIndex(filter){
+      // 
+      console.log(filter);
+      return;
+    };
+
     function createIndex(incomingData){
       var margin = { top: 15, right: 0, bottom: 0, left: 50 },
           width = 960 - margin.left - margin.right,
           height = 550 - margin.top - margin.bottom,
           gridSize = Math.floor(height / 20);
 
-      // #chart will need to be replaced with the ID of the left column
       var svg = d3.select("#chart").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       // eventually replace this with a color brewer
-      var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"]
-      var books = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"]
-      /*
-      maps the chunks to an index 
-      */
-      var chunks = {
-          '1-50':1,
-          '101-150':2,
-          '151-200':3,
-          '201-250':4, 
-          '251-300':5, 
-          '301-350':6,
-          '351-400':7,
-          '401-450':8,
-          '451-500':9,
-          '501-550':10,
-          '51-100':11,
-          '551-600':12,
-          '601-650':13,
-          '651-700':14,
-          '701-750':15,
-          '751-800':16,
-          '801-850':17,
-          '851-900':18,
-          '901-950':19,
-          '951-1000':20
-      }
+      var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"];
       // create the row labels (line chunk)
       var lineChunkLabels = svg.selectAll(".lineChunkLabel")
           .data(Object.keys(chunks))
@@ -85,12 +98,16 @@ function initViz(){
           .attr("class", "bordered")
           .attr("width", gridSize)
           .attr("height", gridSize)
-          .style("fill", colors[0])
+          .style("fill", function(d){
+              return ((d.counts == null) ? "#D3D3D3" : colors[0]);
+          })
           .on("click",function(d){
-            d3.selectAll(".chunk")
-              .style("display",function(el){
+            if(d.counts != null){
+              var chunk_els = d3.selectAll(".chunk");
+              chunk_els.style("display",function(el){
                 return ((el.book == d.book && el.chunk == d.chunk) ? "block" : "none");
               });
+            }
           });
     };
 
@@ -108,7 +125,11 @@ function initViz(){
       .attr("class","chunk")
       .style("display","none")
       .attr("id",function(d){
+        // TODO: add a human-readable heading
         return "chunk-"+d.book+"-"+d.chunk;
+      })
+      .html(function(d){
+        return "<h5>"+"(Book "+d.book+", lines "+d.chunk+")</h4>";
       });
       
       var lines = chunks.selectAll("div.line")

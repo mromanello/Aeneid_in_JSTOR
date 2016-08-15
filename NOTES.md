@@ -1,8 +1,13 @@
 
 ## Next Steps
 
-* get text of Aeneid from .xml file instead of CTS API
-* implement click-event on heatmap => highlights text on middle column
+* get dropdown filter to work (re-draw index)
+* use template engine `moustache`
+* add scroll to columns
+* use bootstrap notifications for key events in the interface
+
+* ~~get text of Aeneid from .xml file instead of CTS API~~
+* ~~implement click-event on heatmap => highlights text on middle column~~
 
 ## how the visualisation should work
 
@@ -14,6 +19,7 @@ main functions:
 Text display:
 
 - text divided into chunks (can then be mapped to divs); each chunk/div has a URN-like id 
+- (IDEA): colour the lines of text based on the number of references/quotations they have. Need to group them by line   
 
 Results display:
 

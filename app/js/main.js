@@ -27,13 +27,19 @@ function initViz(){
         '951-1000':20
     }
 
+    var buckets = 9;
+
+    // eventually replace this with a color brewer
+    var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"];
+
     $('#datafilter').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
       var dataFilter = $("option:selected").text();
       updateIndex(dataFilter);
+      d3.selectAll(".chunk").style("display","none"); // reset the text display
     });
 
     // load the data
-    d3.json("/data/test.json", function(error, data) {
+    d3.json("/data/quot_freq3.json", function(error, data) {
       if (error) return console.warn(error);
       createIndex(data);
       // TODO: pre-load the results into the HTML
@@ -45,24 +51,60 @@ function initViz(){
       });
 
     function updateIndex(filter){
-      // 
-      console.log(filter);
-      return;
+      var cells = d3.select("#chart").select("svg").selectAll("rect");
+      // re-compute the color-scale
+      var colorScale = d3.scale.quantile()
+              .domain([0, buckets - 1, d3.max(cells.data(), function (d) { 
+                if(d.counts != null){
+                  if(filter == "references"){
+                    return d.counts.references.length;
+                  }
+                  else if(filter == "quotations"){
+                    return d.counts.quotations.length;
+                  }
+                  else{
+                    return d.counts.quotations.length + d.counts.references.length;
+                  }
+                }
+              })])
+              .range(colors);
+
+      cells.transition().duration(500)
+      .style("fill", function(d){
+          if(filter == "references"){
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.references.length));
+          }
+          else if(filter == "quotations"){
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length));
+          }
+          else{
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length + d.counts.references.length));
+          }
+      });
+
+      //cells.on("click",function(d){console.log(filter);});
     };
 
     function createIndex(incomingData){
       var margin = { top: 15, right: 0, bottom: 0, left: 50 },
           width = 960 - margin.left - margin.right,
           height = 550 - margin.top - margin.bottom,
-          gridSize = Math.floor(height / 20);
+          gridSize = Math.floor(height / 20); // perhaps needs to be changed
 
       var svg = d3.select("#chart").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-      // eventually replace this with a color brewer
-      var colors = ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"];
+
+      var colorScale = d3.scale.quantile()
+              .domain([0, buckets - 1, d3.max(incomingData, function (d) { 
+                if(d.counts != null){
+                  return d.counts.quotations.length + d.counts.references.length;
+                }
+              })])
+              .range(colors);
+      
       // create the row labels (line chunk)
       var lineChunkLabels = svg.selectAll(".lineChunkLabel")
           .data(Object.keys(chunks))
@@ -73,6 +115,7 @@ function initViz(){
             .style("text-anchor", "end")
             .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
             .attr("class", "label");
+      
       // create 
       var bookLabels = svg.selectAll(".bookLabel")
           .data(books)
@@ -109,6 +152,10 @@ function initViz(){
               });
             }
           });
+      cells.transition().duration(500)
+              .style("fill", function(d) {
+                return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length + d.counts.references.length));
+              });
     };
 
     function loadText(textData){

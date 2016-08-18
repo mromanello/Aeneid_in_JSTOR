@@ -86,10 +86,10 @@ function initViz(){
     };
 
     function createIndex(incomingData){
-      var margin = { top: 15, right: 0, bottom: 0, left: 50 },
+      var margin = { top: 15, right: 0, bottom: 0, left: 60 },
           width = 960 - margin.left - margin.right,
           height = 550 - margin.top - margin.bottom,
-          gridSize = Math.floor(height / 20); // perhaps needs to be changed
+          gridSize = Math.floor(height / 21); // perhaps needs to be changed
 
       var svg = d3.select("#chart").append("svg")
           .attr("width", width + margin.left + margin.right)

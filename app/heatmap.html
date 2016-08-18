@@ -2,6 +2,14 @@
 <meta charset="utf-8">
 <html>
   <head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+    <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="js/main.js"></script>
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <style>
       rect.bordered {
         stroke: #E6E6E6;
@@ -12,6 +20,28 @@
         font-family: Merriweather,serif;
         font-size: 11pt;
       }
+      
+      body{
+        height: 100%;
+        overflow: hidden;
+      }
+      
+      /* 
+      TODO: set the max-height property at run time; 
+      */
+      .pre-scrollable{
+        max-height: 530px;
+      }
+
+      div.page-header {
+        margin-top: 0;
+        margin-bottom: 5px;
+        padding-bottom: 0;
+      }
+
+      div.page-header h1{
+        margin-top: 15px;
+      }
 
       text.label {
         font-size: 8pt;
@@ -19,21 +49,13 @@
         fill: #000;
       }
     </style>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
-    <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
-    <script src="js/main.js"></script>
-
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
   </head>
   <body onload="initViz()">
     <div class="container-fluid">
       <!-- the page header -->
       <div class="page-header">
-        <h1>Vergil's Aeneid in JSTOR</h1>
-        <p class="lead">An interactive visualization of quotations of and references to the Aeneid found within articles in JSTOR.</p>
+        <h1>Vergil's <em>Aeneid</em> in JSTOR</h1>
+        <!--<p class="lead">An interactive visualization of quotations of and references to the Aeneid found within articles in JSTOR.</p>-->
         <p>Display:
           <select class="selectpicker show-tick" id="datafilter">
             <option>all</option>
@@ -43,18 +65,20 @@
         </p>
       </div>
       <!-- the main viewport, divided into 3 columns -->
+    <div class="box">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" id="leftcolumn">
           <div id="chart"></div>
         </div>
-        <div class="col-md-3" style="padding: 0">
+        <div class="col-md-3 pre-scrollable" id="middlecolumn">
           <div id="text">
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 pre-scrollable" id="rightcolumn">
           (here will go the results)
         </div>
       </div>
+    </div>
     </div>
   </body>
 </html>

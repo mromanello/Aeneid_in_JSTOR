@@ -39,7 +39,7 @@ function initViz(){
     });
 
     // load the data
-    d3.json("/data/quot_freq3.json", function(error, data) {
+    d3.json("/data/quot_freq4.json", function(error, data) {
       if (error) return console.warn(error);
       createIndex(data);
       // TODO: pre-load the results into the HTML
@@ -57,13 +57,13 @@ function initViz(){
               .domain([0, buckets - 1, d3.max(cells.data(), function (d) { 
                 if(d.counts != null){
                   if(filter == "references"){
-                    return d.counts.references.length;
+                    return d.counts.reference_count;
                   }
                   else if(filter == "quotations"){
-                    return d.counts.quotations.length;
+                    return d.counts.quotation_count;
                   }
                   else{
-                    return d.counts.quotations.length + d.counts.references.length;
+                    return d.counts.quotation_count + d.counts.reference_count;
                   }
                 }
               })])
@@ -72,13 +72,13 @@ function initViz(){
       cells.transition().duration(500)
       .style("fill", function(d){
           if(filter == "references"){
-            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.references.length));
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.reference_count));
           }
           else if(filter == "quotations"){
-            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length));
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count));
           }
           else{
-            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length + d.counts.references.length));
+            return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
           }
       });
 
@@ -97,10 +97,23 @@ function initViz(){
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+      var tooltip = d3.tip()
+                      .attr('class', 'd3-tip')
+                      .html(function(d) { 
+                        // TODO: replace with moustache template!
+                        return "<strong>References</strong>: <span>"+
+                        d.counts.reference_count+"</span><br/> <strong>Quotations:</strong> <span>"
+                        +d.counts.quotation_count+"</span>";
+                      });
+
+      tooltip.offset([-7,0]);
+
+      svg.call(tooltip);
+
       var colorScale = d3.scale.quantile()
               .domain([0, buckets - 1, d3.max(incomingData, function (d) { 
                 if(d.counts != null){
-                  return d.counts.quotations.length + d.counts.references.length;
+                  return d.counts.quotation_count + d.counts.reference_count;
                 }
               })])
               .range(colors);
@@ -151,10 +164,13 @@ function initViz(){
                 return ((el.book == d.book && el.chunk == d.chunk) ? "block" : "none");
               });
             }
-          });
+          })
+          .on("mouseover",tooltip.show)
+          .on("mouseout",tooltip.hide)
+          ;
       cells.transition().duration(500)
               .style("fill", function(d) {
-                return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotations.length + d.counts.references.length));
+                return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
               });
     };
 

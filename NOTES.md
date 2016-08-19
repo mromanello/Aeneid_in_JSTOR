@@ -1,13 +1,16 @@
 
 ## Next Steps
 
-* get dropdown filter to work (re-draw index)
+* change orientation of tooltip according to position in the heatmap
+* work on the display of results (do sorting in the notebook)
+* https://github.com/flesler/jquery.scrollTo
 * use template engine `moustache`
-* add scroll to columns
 * use bootstrap notifications for key events in the interface
 
 * ~~get text of Aeneid from .xml file instead of CTS API~~
 * ~~implement click-event on heatmap => highlights text on middle column~~
+* ~~get dropdown filter to work (re-draw index)~~
+* ~~add scroll to columns~~
 
 ## how the visualisation should work
 

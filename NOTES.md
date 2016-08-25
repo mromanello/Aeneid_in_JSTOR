@@ -1,12 +1,19 @@
 
 ## Next Steps
 
+
+* install and try the template engine `mustache` <https://github.com/janl/mustache.js>
+* do grouping/sorting in the notebook:
+    - group by line and then by article
+    - sort the articles by year (ascending)
+    - sort lines (ascending)
+* test Bootstrap accordion and turn it into a Mustache template 
+
 * change orientation of tooltip according to position in the heatmap
-* work on the display of results (do sorting in the notebook)
 * https://github.com/flesler/jquery.scrollTo
-* use template engine `moustache`
 * use bootstrap notifications for key events in the interface
 
+* ~~work on the display of results~~
 * ~~get text of Aeneid from .xml file instead of CTS API~~
 * ~~implement click-event on heatmap => highlights text on middle column~~
 * ~~get dropdown filter to work (re-draw index)~~

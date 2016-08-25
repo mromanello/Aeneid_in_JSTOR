@@ -1,5 +1,7 @@
 function initViz(){ 
 
+    var vizData = null;
+
     var books = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
     /*
     maps the chunks to an index 
@@ -39,9 +41,11 @@ function initViz(){
     });
 
     // load the data
-    d3.json("/data/quot_freq4.json", function(error, data) {
+    d3.json("/data/quot_freq.json", function(error, data) {
       if (error) return console.warn(error);
+      vizData = data;
       createIndex(data);
+      loadResults(data);
       // TODO: pre-load the results into the HTML
       });
 
@@ -163,11 +167,32 @@ function initViz(){
               chunk_els.style("display",function(el){
                 return ((el.book == d.book && el.chunk == d.chunk) ? "block" : "none");
               });
+
+              /*
+              * this will have be changed when introducing the accordion
+              */
+
+              d3.selectAll(".chunk-result")
+              .filter(function(m){
+                return (m.book == d.book && m.chunk == d.chunk);
+              })
+              .selectAll("div")
+              .style("display","block");
+
+              d3.selectAll(".chunk-result")
+              .filter(function(m){
+                return (m.book != d.book && m.chunk != d.chunk);
+              })
+              .selectAll("div")
+              .style("display","none");
+
+
             }
           })
           .on("mouseover",tooltip.show)
           .on("mouseout",tooltip.hide)
           ;
+
       cells.transition().duration(500)
               .style("fill", function(d) {
                 return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
@@ -207,6 +232,37 @@ function initViz(){
         //return "<span>("+d.line+") </span>"+d.text;
       })
       ;
+    };
+
+    function loadResults(data){
+      var result_blocks =  d3.select("#results")
+        .selectAll("div.result_chunk")
+        .data(data)
+        .enter()
+        .append("div")
+        //.attr("id",function(d){return "results-"+d.book+"-"+d.chunk})
+        .attr("class","chunk-result")
+        ;
+
+      // filter out those non existing chunks
+      var blocks = result_blocks.filter(function(d) { 
+        return d["counts"] != null; 
+      });
+
+      blocks.each(function(d,i){
+        d3.select(this)
+        .selectAll("div.result")
+        .data(function(z){
+          return z.counts.results;
+        })
+        .enter()
+        .append("div")
+        .style("display","none")
+        .attr("class",function(d){return ((d.type == null) ? "reference" : d.type);})
+        .html(function(y){
+          return "<p>"+y.snippet+"</p>";
+        })
+      })
     };
 
       // TO be continued...

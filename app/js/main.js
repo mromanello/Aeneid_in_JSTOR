@@ -1,6 +1,6 @@
 function initViz(){ 
 
-    var vizData = null;
+    var vizData;
 
     var books = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
     /*
@@ -45,8 +45,8 @@ function initViz(){
       if (error) return console.warn(error);
       vizData = data;
       createIndex(data);
-      loadResults(data);
       // TODO: pre-load the results into the HTML
+      //loadResults(data);
       });
 
     d3.json("/data/perseus_aeneid.json", function(error, data) {
@@ -260,6 +260,8 @@ function initViz(){
         .style("display","none")
         .attr("class",function(d){return ((d.type == null) ? "reference" : d.type);})
         .html(function(y){
+          // TODO: use mustache to run y through a template
+          // and then use the resulting html string into html()
           return "<p>"+y.snippet+"</p>";
         })
       })

@@ -37,7 +37,7 @@ function initViz(){
     $('#datafilter').on('changed.bs.select', function (e, clickedIndex, newValue, oldValue) {
       var dataFilter = $("option:selected").text();
       updateIndex(dataFilter);
-      d3.selectAll(".chunk").style("display","none"); // reset the text display
+      //d3.selectAll(".chunk").style("display","none"); // reset the text display
     });
 
     // load the data
@@ -46,7 +46,7 @@ function initViz(){
       vizData = data;
       createIndex(data);
       // TODO: pre-load the results into the HTML
-      //loadResults(data);
+        loadResults(data);
       });
 
     d3.json("/data/perseus_aeneid.json", function(error, data) {
@@ -85,6 +85,26 @@ function initViz(){
             return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
           }
       });
+
+      if(filter == "references"){
+            d3.selectAll(".badge.quotation")
+            .style("display","none");
+
+            d3.selectAll(".badge.reference")
+            .style("display","block");
+          }
+          else if(filter == "quotations"){
+            d3.selectAll(".badge.quotation")
+            .style("display","block");
+
+            d3.selectAll(".badge.reference")
+            .style("display","none");
+          }
+          else{
+            d3.selectAll(".badge")
+            .style("display","block");
+          }
+      ;
 
       //cells.on("click",function(d){console.log(filter);});
     };
@@ -168,23 +188,10 @@ function initViz(){
                 return ((el.book == d.book && el.chunk == d.chunk) ? "block" : "none");
               });
 
-              /*
-              * this will have be changed when introducing the accordion
-              */
-
               d3.selectAll(".chunk-result")
-              .filter(function(m){
-                return (m.book == d.book && m.chunk == d.chunk);
-              })
-              .selectAll("div")
-              .style("display","block");
-
-              d3.selectAll(".chunk-result")
-              .filter(function(m){
-                return (m.book != d.book && m.chunk != d.chunk);
-              })
-              .selectAll("div")
-              .style("display","none");
+              .style("display",function(m){
+                return ((m.book == d.book && m.chunk == d.chunk) ? "block" : "none");
+              });
 
 
             }
@@ -194,9 +201,9 @@ function initViz(){
           ;
 
       cells.transition().duration(500)
-              .style("fill", function(d) {
-                return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
-              });
+      .style("fill", function(d) {
+        return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
+      });
     };
 
     function loadText(textData){
@@ -240,37 +247,19 @@ function initViz(){
         .data(data)
         .enter()
         .append("div")
-        //.attr("id",function(d){return "results-"+d.book+"-"+d.chunk})
-        .attr("class","chunk-result")
-        ;
-
-      // filter out those non existing chunks
-      var blocks = result_blocks.filter(function(d) { 
+        .filter(function(d) { 
         return d["counts"] != null; 
-      });
-
-      blocks.each(function(d,i){
-        d3.select(this)
-        .selectAll("div.result")
-        .data(function(z){
-          return z.counts.results;
         })
-        .enter()
-        .append("div")
+        .attr("class","chunk-result panel-group")
+        .attr("id",function(d){return "accordion-"+d.book+"-"+d.chunk;})
         .style("display","none")
-        .attr("class",function(d){return ((d.type == null) ? "reference" : d.type);})
-        .html(function(y){
-          // TODO: use mustache to run y through a template
-          // and then use the resulting html string into html()
-          return "<p>"+y.snippet+"</p>";
-        })
-      })
+        .html(function(d){
+          var template = $("#results_template").html()
+          for (var i=0; i < d.counts.results.length; i++){
+            d.counts.results[i]["parent"] = "accordion-"+d.book+"-"+d.chunk;
+            d.counts.results[i]["line_label"] = d.counts.results[i]["line"].replace(".","_");
+          }
+          return Mustache.render(template,d.counts);
+        });
     };
-
-      // TO be continued...
-      /*
-      TODO: 
-      * bind each cell with a click event => on click show 
-      * tooltip on each cell (bootstrap) showing number of quotations and number of references
-      */
 };

@@ -7,7 +7,8 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
     <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
     <script src="bower_components/mustache.js/mustache.js"></script>
-     <script src="bower_components/d3-tip/index.js"></script>
+    <script src="bower_components/d3-tip/index.js"></script>
+    <script src="bower_components/jquery.scrollTo/jquery.scrollTo.min.js"></script>
     <script src="js/main.js"></script>
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +25,24 @@
         font-size: 11pt;
       }
 
+      #manipula{
+        font-size: 14pt;
+        vertical-align: middle;
+        margin-left: -20px;
+      }
+
       body{
         height: 100%;
         overflow: hidden;
+      }
+
+      blockquote p{
+        font-size: 11pt;
+      }
+
+      blockquote p em{
+        background-color: #fcf8e3;
+        font-style: normal;
       }
       
       /* 
@@ -34,6 +50,15 @@
       */
       .pre-scrollable{
         max-height: 530px;
+      }
+
+      #middlecolumn{
+        padding-left: 30px;
+      }
+
+      #rightcolumn{
+        margin:0px;
+        padding-right: 10px;
       }
 
       div.page-header {
@@ -46,6 +71,17 @@
         margin-top: 15px;
       }
 
+      .line{
+        line-height: 2;
+      }
+
+      .line_number{
+        font-family: sans-serif;
+        font-size: 9pt;
+        color: #808080;
+        padding-right: 10px;
+      }
+
       text.label {
         font-size: 8pt;
         font-family: Consolas, courier;
@@ -54,6 +90,7 @@
     </style>
   </head>
   <body onload="initViz()">
+    <span id="manipula" style="display: none">☞ </span>
     <div class="container-fluid">
       <!-- the page header -->
       <div class="page-header">
@@ -73,11 +110,11 @@
         <div class="col-md-4" id="leftcolumn">
           <div id="chart"></div>
         </div>
-        <div class="col-md-3 pre-scrollable" id="middlecolumn">
+        <div class="col-md-4 pre-scrollable" id="middlecolumn">
           <div id="text">
           </div>
         </div>
-        <div class="col-md-5 pre-scrollable" id="rightcolumn">
+        <div class="col-md-4 pre-scrollable" id="rightcolumn">
           <div id="results">
                 
           </div>
@@ -85,8 +122,9 @@
       </div>
     </div>
     </div>
-    <script id="test" type="x-tmpl-mustache">
-    Hello Franco!
+    <!--<script async defer src="https://hypothes.is/embed.js"></script>-->
+     <script id="line_number_template" type="x-tmpl-mustache">
+      <span class="line_number" style="visibility:{{visibility}}">{{line}} </span>{{text}}
     </script>
     <script id="results_template" type="x-tmpl-mustache">
           {{#results}}
@@ -101,7 +139,29 @@
               </div>
               <div id="collapse_{{line_label}}" class="panel-collapse collapse">
                   <div class="panel-body">
-                      <p>TBD</p>
+                      <ul class="list-group">
+                      {{#results}}
+                          <li class="list-group-item {{type}}">
+                            <h5 class="list-group-item-heading">
+                              {{#document}}
+                              {{author}}
+                              {{#year}}
+                              ({{.}})
+                              {{/year}}
+                              "{{title}}" 
+                              <em>{{journaltitle}}</em>
+                              [<a href="{{url}}" target="_blank">
+                                {{doi}}
+                              </a>]
+                              {{/document}}
+                            </h5>
+                            <blockquote>
+                              <p>{{{snippet}}}</p>
+                              <small>{{id}} {{type}}</small>
+                            </blockquote>
+                          </li>
+                      {{/results}}
+                      </ul>
                   </div>
               </div>
           </div>

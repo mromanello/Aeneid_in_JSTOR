@@ -46,7 +46,7 @@ function initViz(){
       vizData = data;
       createIndex(data);
       // TODO: pre-load the results into the HTML
-        loadResults(data);
+      loadResults(data);
       });
 
     d3.json("/data/perseus_aeneid.json", function(error, data) {
@@ -87,21 +87,23 @@ function initViz(){
       });
 
       if(filter == "references"){
-            d3.selectAll(".badge.quotation")
+            d3.selectAll(".quotation")
             .style("display","none");
 
-            d3.selectAll(".badge.reference")
+            d3.selectAll(".reference")
             .style("display","block");
           }
           else if(filter == "quotations"){
-            d3.selectAll(".badge.quotation")
+            d3.selectAll(".quotation")
             .style("display","block");
 
-            d3.selectAll(".badge.reference")
+            d3.selectAll(".reference")
             .style("display","none");
           }
           else{
             d3.selectAll(".badge")
+            .style("display","block");
+            d3.selectAll(".list-group-item")
             .style("display","block");
           }
       ;
@@ -234,11 +236,15 @@ function initViz(){
       .enter()
       .append("div")
       .attr("class","line")
-      .html(function(d){
-        return d.text;
-        //return "<span>("+d.line+") </span>"+d.text;
+      .attr("id",function(d){
+        return "line_"+d.line.replace(".","_");
       })
-      ;
+      .html(function(d){
+        var line_number = d.line.split(".")[1];
+        var visibility = ((line_number % 5) ? "hidden" : "visible");
+        var template = $("#line_number_template").html();
+        return Mustache.render(template,{"text" : d.text, "visibility" : visibility, "line" : line_number});
+      });
     };
 
     function loadResults(data){
@@ -254,12 +260,24 @@ function initViz(){
         .attr("id",function(d){return "accordion-"+d.book+"-"+d.chunk;})
         .style("display","none")
         .html(function(d){
-          var template = $("#results_template").html()
+          var template = $("#results_template").html();
           for (var i=0; i < d.counts.results.length; i++){
             d.counts.results[i]["parent"] = "accordion-"+d.book+"-"+d.chunk;
             d.counts.results[i]["line_label"] = d.counts.results[i]["line"].replace(".","_");
           }
           return Mustache.render(template,d.counts);
         });
+
+      var collapsibles = d3.selectAll(".panel-collapse");
+
+      collapsibles.each(function(){
+          $("#"+this.id).on('show.bs.collapse', function () {
+              var line_id = "#"+this.id.replace("collapse_","line_").replace(".","_")
+              $("#middlecolumn").scrollTo($(line_id),800);
+              $(line_id).prepend($("#manipula"));
+              $("#manipula").css("display","inline");
+              // TODO: insert a manipula in correspondence to the line_ ☞
+          });
+      });
     };
 };

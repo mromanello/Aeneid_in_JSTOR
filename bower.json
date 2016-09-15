@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "homepage": "https://github.com/mromanello/Vergil_in_JSTOR",
+  "authors": [
+    "mromanello <matteo.romanello@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "3.5",
+    "bootstrap": "^3.3.7",
+    "d3-tip": "^0.6.7",
+    "bootstrap-select": "^1.10.0",
+    "mustache.js": "mustache#^2.2.1",
+    "jquery.scrollTo": "^2.1.2",
+    "bootstrap-waitingfor": "^1.2.4"
+  }
+}

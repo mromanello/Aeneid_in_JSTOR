@@ -1,6 +1,7 @@
 
+* add support for https://github.com/ehpc/bootstrap-waitingfor
 * in the metadata of references, add `year` (by parsing pubdate)
-* fix the orientation of the tooltip
+* ~~fix the orientation of the tooltip~~
 * add at the very top of the page, info about passage in focus
 * in the ipython notebook, fix the sorting of line groups (e.g. 12.19, 12.2, 12.20)
 * ~~add manipula (☞) when jumping to line~~

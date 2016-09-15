@@ -1,1 +1,1 @@
-# Vergil_in_JSTOR
+# *Aeneid* in JSTOR

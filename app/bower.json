@@ -21,6 +21,7 @@
     "d3-tip": "^0.6.7",
     "bootstrap-select": "^1.10.0",
     "mustache.js": "mustache#^2.2.1",
-    "jquery.scrollTo": "^2.1.2"
+    "jquery.scrollTo": "^2.1.2",
+    "bootstrap-waitingfor": "^1.2.4"
   }
 }

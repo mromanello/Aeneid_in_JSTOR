@@ -1,5 +1,4 @@
 function initViz(){ 
-
     var vizData;
 
     var books = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
@@ -45,7 +44,6 @@ function initViz(){
       if (error) return console.warn(error);
       vizData = data;
       createIndex(data);
-      // TODO: pre-load the results into the HTML
       loadResults(data);
       });
 
@@ -132,6 +130,20 @@ function initViz(){
                         +d.counts.quotation_count+"</span>";
                       });
 
+      tooltip.direction(function(d) {
+        if(d!=null){
+          if(d.book==1){
+            return "e";
+          }
+          else if(d.chunk=="1-50"){
+            return "s";
+          }
+          else{
+            return "n";
+          }
+        }
+      })
+
       tooltip.offset([-7,0]);
 
       svg.call(tooltip);
@@ -195,6 +207,7 @@ function initViz(){
                 return ((m.book == d.book && m.chunk == d.chunk) ? "block" : "none");
               });
 
+              $("#focus").html("Book "+d.book+", lines "+d.chunk);
 
             }
           })
@@ -206,6 +219,8 @@ function initViz(){
       .style("fill", function(d) {
         return ((d.counts == null) ? "#D3D3D3" : colorScale(d.counts.quotation_count + d.counts.reference_count));
       });
+
+      
     };
 
     function loadText(textData){
@@ -224,9 +239,6 @@ function initViz(){
       .attr("id",function(d){
         // TODO: add a human-readable heading
         return "chunk-"+d.book+"-"+d.chunk;
-      })
-      .html(function(d){
-        return "<h5>"+"(Book "+d.book+", lines "+d.chunk+")</h4>";
       });
       
       var lines = chunks.selectAll("div.line")
@@ -279,5 +291,13 @@ function initViz(){
               // TODO: insert a manipula in correspondence to the line_ ☞
           });
       });
+
+      d3.selectAll("rect")
+      .filter(function(d){return d.book==1 && d.chunk == "1-50"})
+      .each(function(d,i){
+        var onClickFunc = d3.select(this).on("click");
+        onClickFunc.apply(this, [d, i]);
+      });
+      $('#myPleaseWait').modal('hide');
     };
 };

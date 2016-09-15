@@ -15,10 +15,42 @@
     <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/d3tip.css" rel="stylesheet">
     <style>
+      /*
+      * this is for the spinning wheel in the splash screen
+      */
+      .glyphicon-spin {
+          -webkit-animation: spin 1000ms infinite linear;
+          animation: spin 1000ms infinite linear;
+      }
+      @-webkit-keyframes spin {
+          0% {
+              -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+          }
+      }
+      @keyframes spin {
+          0% {
+              -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+          }
+          100% {
+              -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+          }
+      }
+
       rect.bordered {
         stroke: #E6E6E6;
         stroke-width:2px;   
       }
+
+      /*
+      * end (spinning wheel)
+      */
 
       div#text .line{
         font-family: Merriweather,serif;
@@ -56,6 +88,10 @@
         padding-left: 30px;
       }
 
+      #infocus{
+        margin-left: 30px
+      }
+
       #rightcolumn{
         margin:0px;
         padding-right: 10px;
@@ -87,21 +123,58 @@
         font-family: Consolas, courier;
         fill: #000;
       }
+      .container-fluid{
+        margin-top: 70px
+      }
     </style>
   </head>
-  <body onload="initViz()">
+  <body onload="$('#myPleaseWait').modal('show'); initViz();">
+    <!-- Modal Start here-->
+    <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1"
+        role="dialog" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                        </span> Loading...
+                     </h4>
+                </div>
+            </div>
+        </div>
+    </div>
     <span id="manipula" style="display: none">☞ </span>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><em>Aeneid</em> in JSTOR</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li class="active"><a href="/explore">Explore</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
     <div class="container-fluid">
       <!-- the page header -->
       <div class="page-header">
-        <h1>Vergil's <em>Aeneid</em> in JSTOR</h1>
-        <!--<p class="lead">An interactive visualization of quotations of and references to the Aeneid found within articles in JSTOR.</p>-->
         <p>Display:
           <select class="selectpicker show-tick" id="datafilter">
             <option>all</option>
             <option>quotations</option>
             <option>references</option>
           </select>
+          <span id="infocus">In Focus: <span id="focus"></span></span>
         </p>
       </div>
       <!-- the main viewport, divided into 3 columns -->
@@ -122,7 +195,7 @@
       </div>
     </div>
     </div>
-    <!--<script async defer src="https://hypothes.is/embed.js"></script>-->
+    <script async defer src="https://hypothes.is/embed.js"></script>
      <script id="line_number_template" type="x-tmpl-mustache">
       <span class="line_number" style="visibility:{{visibility}}">{{line}} </span>{{text}}
     </script>
@@ -157,7 +230,7 @@
                             </h5>
                             <blockquote>
                               <p>{{{snippet}}}</p>
-                              <small>{{id}} {{type}}</small>
+                              <small>({{type}}: {{id}})</small>
                             </blockquote>
                           </li>
                       {{/results}}

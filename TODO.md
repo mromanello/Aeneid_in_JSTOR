@@ -1,11 +1,14 @@
 
-* add support for https://github.com/ehpc/bootstrap-waitingfor
+
 * in the metadata of references, add `year` (by parsing pubdate)
-* ~~fix the orientation of the tooltip~~
-* add at the very top of the page, info about passage in focus
 * in the ipython notebook, fix the sorting of line groups (e.g. 12.19, 12.2, 12.20)
+
+* ~~add at the very top of the page, info about passage in focus~~
+* ~~add support for https://github.com/ehpc/bootstrap-waitingfor~~
+* ~~fix the orientation of the tooltip~~
 * ~~add manipula (☞) when jumping to line~~
 * ~~add line numbers every 5 lines of text~~
+* ~~buy domain name?: aeneidinsjstor.eu (?)~~
 
 * data consistency
     - in the grouping of results there are some problems that need some debugging

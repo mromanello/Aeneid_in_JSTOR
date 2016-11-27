@@ -40,14 +40,14 @@ function initViz(){
     });
 
     // load the data
-    d3.json("/data/quot_freq.json", function(error, data) {
+    d3.json("data/quot_freq.json", function(error, data) {
       if (error) return console.warn(error);
       vizData = data;
       createIndex(data);
       loadResults(data);
       });
 
-    d3.json("/data/perseus_aeneid.json", function(error, data) {
+    d3.json("data/perseus_aeneid.json", function(error, data) {
       if (error) return console.warn(error);
       loadText(data);
       });

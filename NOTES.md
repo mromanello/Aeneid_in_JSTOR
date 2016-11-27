@@ -10,6 +10,15 @@ To click automatically on the first chunk
     onClickFunc.apply(this, [d, i]);
     })
 
+## Home section
+
+http://www.kodingmadesimple.com/2015/09/twitter-bootstrap-jumbotron-background-image-responsive.html
+
+## About section
+
+- author + context (online conversation with...)
+- point to to code also for bug reporting
+- acknowledge the text of the Aeneid by Perseus and thank JSTOR for the data
 
 ## Old stuff
 

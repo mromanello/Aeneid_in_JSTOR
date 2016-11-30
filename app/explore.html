@@ -51,6 +51,15 @@
       /*
       * end (spinning wheel)
       */
+      #results span.quotation, #legend span.quotation{
+        background-color:#777;
+        margin:2px;
+      }
+
+      #results span.reference, #legend span.reference{
+        background-color:#b94a48;
+        margin:2px;
+      }
 
       div#text .line{
         font-family: Merriweather,serif;
@@ -63,6 +72,32 @@
         margin-left: -20px;
       }
 
+      #results .metadata{
+        margin: 5px;
+        font-size: 11pt;
+      }
+
+      #results .article-title{
+        line-height: 1.4;
+        font-size: 13pt;
+        font-weight: bold;
+        font-family: serif;
+      }
+
+      #results .author-date{
+        font-variant: small-caps;
+        font-size: 12pt;
+      }
+
+      #results .doi{
+        font-size: 10pt;
+      }
+
+      .list-group-item-heading{
+        background-color: #f5f5f5;
+        padding: 5px;
+      }
+
       body{
         height: 100%;
         overflow: hidden;
@@ -70,6 +105,11 @@
 
       blockquote p{
         font-size: 11pt;
+      }
+
+      blockquote.snippet p{
+        font-size: 12pt;
+        font-family: serif;
       }
 
       blockquote p em{
@@ -166,19 +206,34 @@
       </div>
     </nav>
     <div class="container-fluid">
-      <!-- the page header -->
+      <!-- the page header 
       <div class="page-header">
-        <p>Display:
+        
+      </div>
+    -->
+      <!-- the main viewport, divided into 3 columns -->
+    <div class="box">
+      <div class="row">
+        <div class="col-md-4">
+          <p>Display:
           <select class="selectpicker show-tick" id="datafilter">
             <option>all</option>
             <option>quotations</option>
             <option>references</option>
           </select>
-          <span id="infocus">In Focus: <span id="focus"></span></span>
         </p>
+        </div>
+        <div class="col-md-4">
+          <span id="infocus">In Focus: <span id="focus"></span></span>
+        </div>
+        <div class="col-md-4">
+          <span id="legend" class="pull-left">
+            Legend:
+            <span class="badge quotation" title="legend for quotations">quotation</span>
+            <span class="badge reference" title="legend for quotations">reference</span>
+          </span>
+        </div>
       </div>
-      <!-- the main viewport, divided into 3 columns -->
-    <div class="box">
       <div class="row">
         <div class="col-md-4" id="leftcolumn">
           <div id="chart"></div>
@@ -217,20 +272,20 @@
                           <li class="list-group-item {{type}}">
                             <h5 class="list-group-item-heading">
                               {{#document}}
-                              {{author}}
-                              {{#year}}
-                              ({{.}})
-                              {{/year}}
-                              "{{title}}" 
-                              <em>{{journaltitle}}</em>
-                              [<a href="{{url}}" target="_blank">
-                                {{doi}}
-                              </a>]
+                              <p class="metadata article-title">{{title}}</p>
+                              <p class="metadata author-date">{{author}}
+                              </p>
+                              <p class="metadata journal-title"> 
+                              <em>{{journaltitle}}</em> {{#year}} {{.}} {{/year}}
+                              </p>
+                              <p class="metadata doi">
+                                DOI: <a href="{{url}}" target="_blank">{{doi}}</a> 
+                              </p>
                               {{/document}}
                             </h5>
-                            <blockquote>
+                            <blockquote class="snippet text-justify">
                               <p>{{{snippet}}}</p>
-                              <small>({{type}}: {{id}})</small>
+                              <small class="text-left">({{type}}: {{id}})</small>
                             </blockquote>
                           </li>
                       {{/results}}

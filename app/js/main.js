@@ -85,24 +85,25 @@ function initViz(){
       });
 
       if(filter == "references"){
-            d3.selectAll(".quotation")
+            d3.selectAll(".badge.quotation")
             .style("display","none");
 
-            d3.selectAll(".badge .reference")
+            d3.selectAll(".badge.reference")
             .style("display","inline");
 
-            d3.selectAll(".list-group-item .reference")
+            d3.selectAll(".list-group-item.reference")
             .style("display","block");
           }
           else if(filter == "quotations"){
-            d3.selectAll(".badge .quotation")
+            d3.selectAll(".badge.quotation")
             .style("display","inline");
 
-            d3.selectAll(".list-group-item .quotation")
+            d3.selectAll(".badge.reference")
+            .style("display","none");
+
+            d3.selectAll(".list-group-item.quotation")
             .style("display","block");
 
-            d3.selectAll(".reference")
-            .style("display","none");
           }
           else{
             d3.selectAll(".badge")

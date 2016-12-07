@@ -47,6 +47,7 @@ function initViz(){
       loadResults(data);
       });
 
+    // load the text of the Aeneid (Perseus' Latin edition)
     d3.json("data/perseus_aeneid.json", function(error, data) {
       if (error) return console.warn(error);
       loadText(data);
@@ -70,6 +71,7 @@ function initViz(){
                 }
               })])
               .range(colors);
+      //console.log(filter);
 
       cells.transition().duration(500)
       .style("fill", function(d){
@@ -85,22 +87,35 @@ function initViz(){
       });
 
       if(filter == "references"){
-            d3.selectAll(".quotation")
+            d3.selectAll(".badge.quotation")
             .style("display","none");
 
-            d3.selectAll(".reference")
+            d3.selectAll(".badge.reference")
+            .style("display","inline");
+
+            d3.selectAll(".list-group-item.reference")
             .style("display","block");
+
+            d3.selectAll(".list-group-item.quotation")
+            .style("display","none");
           }
           else if(filter == "quotations"){
-            d3.selectAll(".quotation")
+            d3.selectAll(".badge.quotation")
+            .style("display","inline");
+
+            d3.selectAll(".badge.reference")
+            .style("display","none");
+
+            d3.selectAll(".list-group-item.quotation")
             .style("display","block");
 
-            d3.selectAll(".reference")
+            d3.selectAll(".list-group-item.reference")
             .style("display","none");
+
           }
           else{
             d3.selectAll(".badge")
-            .style("display","block");
+            .style("display","inline");
             d3.selectAll(".list-group-item")
             .style("display","block");
           }
@@ -123,11 +138,26 @@ function initViz(){
 
       var tooltip = d3.tip()
                       .attr('class', 'd3-tip')
-                      .html(function(d) { 
-                        // TODO: replace with moustache template!
-                        return "<strong>References</strong>: <span>"+
-                        d.counts.reference_count+"</span><br/> <strong>Quotations:</strong> <span>"
-                        +d.counts.quotation_count+"</span>";
+                      .html(function(d) {
+                        var dataFilter = $("option:selected").text();
+                        if(dataFilter == "references"){
+                          // TODO: replace with moustache template!
+                          return "<strong>References</strong>: <span>"+
+                          d.counts.reference_count+"</span>";
+
+                        }
+                        else if(dataFilter == "quotations"){
+                          // TODO: replace with moustache template!
+                          return "<strong>Quotations:</strong> <span>"
+                          +d.counts.quotation_count+"</span>";
+
+                        }
+                        else{
+                          // TODO: replace with moustache template!
+                          return "<strong>References</strong>: <span>"+
+                          d.counts.reference_count+"</span><br/> <strong>Quotations:</strong> <span>"
+                          +d.counts.quotation_count+"</span>";
+                        }
                       });
 
       tooltip.direction(function(d) {

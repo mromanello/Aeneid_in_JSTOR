@@ -47,6 +47,7 @@ function initViz(){
       loadResults(data);
       });
 
+    // load the text of the Aeneid (Perseus' Latin edition)
     d3.json("data/perseus_aeneid.json", function(error, data) {
       if (error) return console.warn(error);
       loadText(data);
@@ -70,6 +71,7 @@ function initViz(){
                 }
               })])
               .range(colors);
+      //console.log(filter);
 
       cells.transition().duration(500)
       .style("fill", function(d){
@@ -93,6 +95,9 @@ function initViz(){
 
             d3.selectAll(".list-group-item.reference")
             .style("display","block");
+
+            d3.selectAll(".list-group-item.quotation")
+            .style("display","none");
           }
           else if(filter == "quotations"){
             d3.selectAll(".badge.quotation")
@@ -103,6 +108,9 @@ function initViz(){
 
             d3.selectAll(".list-group-item.quotation")
             .style("display","block");
+
+            d3.selectAll(".list-group-item.reference")
+            .style("display","none");
 
           }
           else{

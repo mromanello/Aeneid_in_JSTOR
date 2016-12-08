@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
+  <title>Aeneid in JSTOR</title>
   <head>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
@@ -9,55 +10,20 @@
     <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/d3tip.css" rel="stylesheet">
     <style>
-      rect.bordered {
-        stroke: #E6E6E6;
-        stroke-width:2px;   
-      }
-
-      div#text .line{
-        font-family: Merriweather,serif;
-        font-size: 11pt;
-      }
-
-      #manipula{
-        font-size: 14pt;
-        vertical-align: middle;
-        margin-left: -20px;
-      }
 
       body{
-        height: 100%;
-        overflow: hidden;
-      }
-
-      blockquote p{
-        font-size: 11pt;
-      }
-
-      blockquote p em{
-        background-color: #fcf8e3;
-        font-style: normal;
+        //height: 100%;
+        //overflow: hidden;
       }
 
       div.jumbotron {
         margin-bottom: 0;
-        padding-bottom: 0;
-      }
-      
-      /* 
-      TODO: set the max-height property at run time; 
-      */
-      .pre-scrollable{
-        max-height: 530px;
+        //padding-bottom: 0;
       }
 
-      #middlecolumn{
-        padding-left: 30px;
-      }
-
-      #rightcolumn{
-        margin:0px;
-        padding-right: 10px;
+      div.feature-description{
+        padding:20px;
+        padding-top:0px;
       }
 
       div.page-header {
@@ -103,13 +69,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><em>Aeneid</em> in JSTOR</a>
+          <a class="navbar-brand" href="/"><em>Aeneid</em> in JSTOR</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index">Home</a></li>
-            <li><a href="explore">Explore</a></li>
-            <li><a href="about">About</a></li>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/explore">Explore</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -124,26 +90,35 @@
     </div>
         <div class="container">
       <div class="row">
-        <div class="col-md-4 text-justify">
-          <h2>Browse</h2>
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+            Explore
+          </h2>
           <img src="imgs/index.png" class="img-responsive" alt="Responsive image">
           <br/>
           <p>A <strong>visual index</strong> provides an overview of quotations and references, where each cell represents a chunk of the text. The darker a given cell is, the higher is the density of quotations and references within that chunk.
           <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
           </p>
         </div>
-        <div class="col-md-4 text-justify">
-          <h2>Read</h2>
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            Read
+          </h2>
           <img src="imgs/results.png" class="img-responsive" alt="Responsive image">
           <br/>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
        </div>
-        <div class="col-md-4 text-justify">
-          <h2>Annotate</h2>
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+            Annotate
+          </h2>
           <img src="imgs/annotation.png" class="img-responsive" alt="Responsive image">
           <br/>
-          <p>Thanks to the integration with the platform <a href="http://hypothes.is">hypothes.is</a> it is possible to annotate the visualisation (either privately or publicly). This way, you can take notes while you discover new articles related to the <em>Aeneid</em></p>.
+          <p>Thanks to the integration with the platform <a href="http://hypothes.is">hypothes.is</a> it is possible to annotate the visualisation (either privately or publicly). This way, you can take notes while you discover new articles related to the <em>Aeneid</em>.</p>
           <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
         </div>
       </div>

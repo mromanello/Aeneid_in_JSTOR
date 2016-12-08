@@ -5,6 +5,21 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
     <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//piwik.dainst.org/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '9']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="//piwik.dainst.org/piwik.php?idsite=9" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/d3tip.css" rel="stylesheet">
@@ -150,6 +165,6 @@
     <div class="container-fluid">
       <!-- the main viewport, divided into 3 columns -->
     </div>
-    <!--<script async defer src="https://hypothes.is/embed.js"></script>-->
+    <script async defer src="https://hypothes.is/embed.js"></script>
   </body>
 </html>

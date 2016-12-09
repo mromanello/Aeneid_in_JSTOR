@@ -105,7 +105,7 @@
     <div class="container" style="margin-top: 70px">
       <div class="col-md-10 col-md-offset-1">
       <h3>Credits</h3>
-      <p><em>Aeneid in JSTOR</em> has been developed by <a target="_blank" href="https://orcid.org/0000-0002-7406-6286">Matteo Romanello</a>, and it was born out of an online conversation with Ronald Snyder (JSTOR Lab), Neil Coffee, Chris Forstall, Caitlin Diddams and James Gawley &mdash; the <a target="_blank" href="http://tesserae.caset.buffalo.edu/">Tesserae team</a>.
+      <p><em>Aeneid in JSTOR</em> has been developed by <a target="_blank" href="https://orcid.org/0000-0002-7406-6286">Matteo Romanello</a>, and it was born out of an online conversation with Ronald Snyder (JSTOR Labs), Neil Coffee, Chris Forstall, Caitlin Diddams and James Gawley &mdash; the <a target="_blank" href="http://tesserae.caset.buffalo.edu/">Tesserae team</a>.
       </p>
       <p>
       Thanks also to Dario Rodighiero and Michele Pasin for their precious advices on the visualization side of things!
@@ -123,24 +123,40 @@
         Whether you want to report a bug or express interest for a new feature, please do so via the <a target="_blank" href="https://github.com/mromanello/Aeneid_in_JSTOR/issues">GitHub project page</a>.  
       </p>
       <p>
-        If you prefer to get in touch by email &mdash; e.g. to discuss a potential collaboration &mdash; you can use <code>feedback at aeneidinjstor dot eu</code>.
+        If you want to get &mdash; e.g. to discuss potential collaborations &mdash; drop a line to <code>matteo dot romanello at gmail dot com</code>.
       </p>
       <!-- FAQ -->
       <div>
         <h3>FAQ</h3>
         <div class="panel-group" id="accordion-faq">
+            <!-- Question 6 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_6">
+                      Why do the search results not link directly to the page in JSTOR where the quotation/reference was found?
+                    </a>
+                  </h4>
+                </div>
+                <div class="panel-collapse collapse" id="reply_6">
+                  <div class="panel-body">
+                    <p>This is perhaps the biggest limitation of the interface at the moment, as it forces the reader to go through the article in order to find the passage in question. We hope to fix this issue soon &mdash; watch this space!</p>
+                  </div>
+                </div>
+            </div>
+          </div>
                     <!-- Question 3 -->
           <div class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_3">
-                    How did you extract the references?
+                    How were references extracted?
                   </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse" id="reply_3">
                 <div class="panel-body">
-                  <p>here goes the answer</p>
+                  <p>This was done automatically by using software developed by Matteo Romanello. For a description of how it works see <a target="_blank" href="http://www.digitalhumanities.org/dhq/vol/10/2/000255/000255.html">this recent paper</a> or his <a target="_blank" href="http://hdl.handle.net/11858/00-1780-0000-002A-4537-A">PhD dissertation</a>.</p>
                 </div>
               </div>
           </div>
@@ -149,13 +165,13 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_4">
-                    How did you extract the quotations?
+                    How were quotations captured?
                   </a>
                 </h4>
               </div>
               <div class="panel-collapse collapse" id="reply_4">
                 <div class="panel-body">
-                  <p>here goes the answer</p>
+                  <p>This was done by Ron Snyder at the JSTOR Labs. The source code is available on <a target="_blank" href="https://github.com/JSTOR-Labs/matchmaker">Github</a> and there is an API to fetch the quotation data (<a target="_blank" href="http://labs.jstor.org/apis/docs/">documentation</a>).</p>
                 </div>
               </div>
           </div>
@@ -170,22 +186,7 @@
               </div>
               <div class="panel-collapse collapse" id="reply_1">
                 <div class="panel-body">
-                  <p>TODO</p>
-                </div>
-              </div>
-          </div>
-          <!-- Question 2 -->
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_2">
-                    Why a paywalled resource like JSTOR?
-                  </a>
-                </h4>
-              </div>
-              <div class="panel-collapse collapse" id="reply_2">
-                <div class="panel-body">
-                  <p>here goes the answer</p>
+                  <p>As in any proof of concept, the scope is relatively narrow. Besides, the <em>Aeneid</em> is one of the few works for which both quotations and references were readily available. Nevertheless, we'd love to discuss how to develop similar tools also for other ancient works.</p>
                 </div>
               </div>
           </div>
@@ -200,25 +201,28 @@
                 </div>
                 <div class="panel-collapse collapse" id="reply_5">
                   <div class="panel-body">
-                    <p>here goes the answer</p>
+                    <p>Annotating the content of an interactive display can be tricky.
+                      For example, you won't be able to attach notes to the SVG heatmap (left hand-side).
+                      What makes this difficult is that the element you have annotated may be hidden &mdash; thus not visible &mdash; the next time you or someone else loads the interface.
+                      In order not loose the context of an annotation, we recommend to enter the number of the line(s) as an annotation tag (e.g. "12.460"). 
+                    </p>
                   </div>
                 </div>
             </div>
-            <!-- Question 6 -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_6">
-                      Why do the search results not link directly to the page in JSTOR where the quotation/reference was found?
-                    </a>
-                  </h4>
+          <!-- Question 2 -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_2">
+                    Why a paywalled resource like JSTOR?
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" id="reply_2">
+                <div class="panel-body">
+                  <p>Despite not being an openly available resource, JSTOR is currently the most comprehensive digital archive of journal articles that we can actually mine. Although there are a lot of Open Access electronic journals out there (see e.g. <a target="_blank" href="http://isaw.nyu.edu/publications/awol-index/">the AWOL Index</a>), it's not yet possible to process their context without (a lot of) additional work.</p>
                 </div>
-                <div class="panel-collapse collapse" id="reply_6">
-                  <div class="panel-body">
-                    <p>here goes the answer</p>
-                  </div>
-                </div>
-            </div>
+              </div>
           </div>
         </div>
         </div>

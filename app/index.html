@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <title>Aeneid in JSTOR</title>
+  <head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+    <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/d3tip.css" rel="stylesheet">
+    <style>
+
+      body{
+        //height: 100%;
+        //overflow: hidden;
+      }
+
+      div.jumbotron {
+        margin-bottom: 0;
+        //padding-bottom: 0;
+      }
+
+      div.feature-description{
+        padding:20px;
+        padding-top:0px;
+      }
+
+      div.page-header {
+        margin-top: 0;
+        margin-bottom: 5px;
+        padding-bottom: 0;
+      }
+
+      div.page-header h1{
+        margin-top: 15px;
+      }
+
+      .line{
+        line-height: 2;
+      }
+
+      .line_number{
+        font-family: sans-serif;
+        font-size: 9pt;
+        color: #808080;
+        padding-right: 10px;
+      }
+
+      text.label {
+        font-size: 8pt;
+        font-family: Consolas, courier;
+        fill: #000;
+      }
+      .container-fluid{
+        margin-top: 70px
+      }
+    </style>
+  </head>
+  <body onload="initViz()">
+    <span id="manipula" style="display: none">☞ </span>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><em>Aeneid</em> in JSTOR</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/explore">Explore</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="jumbotron">
+      <div class="container">
+        <h1><em>Aeneid</em> in JSTOR</h1>
+        <p>
+          It's a proof of concept of how next-generation tools for retrieving bibliographic information could look like.
+        </p>
+        <p>
+          Try it out to find articles in JSTOR that quote or refer to specific passages of Vergil's <em>Aeneid</em>.
+        </p>
+        <p>
+          +11k quotations, +12k references and +5.7k JSTOR articles made searchable trough an intuitive interface. 
+        </p>
+        <p><a class="btn btn-primary btn-lg" href="explore" role="button">Try it out &raquo;</a></p>
+      </div>
+    </div>
+        <div class="container">
+      <div class="row">
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+            Explore
+          </h2>
+          <img src="imgs/index.png" class="img-responsive" alt="Responsive image">
+          <br/>
+          <p>A <strong>visual index</strong> (heatmap) provides an overview of extracted quotations and references. Each cell represents a chunk of the text. The darker a cell, the higher the density of quotations and references within that chunk.
+          <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
+          </p>
+        </div>
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            Read
+          </h2>
+          <img src="imgs/results.png" class="img-responsive" alt="Responsive image">
+          <br/>
+          <p>
+            Matching articles from JSTOR are shown on the right-hand panel, together with the snippet of text where the quotation/reference was found and link to the article in JSTOR. The results can be filtered so as to show only article with either quotations of or references to the Vergilian text. 
+          </p>
+          <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
+       </div>
+        <div class="col-md-4 text-justify feature-description">
+          <h2 class="text-center">
+            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+            Annotate
+          </h2>
+          <img src="imgs/annotation.png" class="img-responsive" alt="Responsive image">
+          <br/>
+          <p>Thanks to the integration with the platform <a href="http://hypothes.is">hypothes.is</a> it is possible to annotate the visualisation (either privately or publicly). This way, you can take notes while you discover new articles related to the <em>Aeneid</em>.</p>
+          <p><a class="btn btn-secondary" href="about" role="button">Read more</a></p>
+        </div>
+      </div>
+    <div class="container-fluid">
+      <!-- the main viewport, divided into 3 columns -->
+    </div>
+    <!--<script async defer src="https://hypothes.is/embed.js"></script>-->
+  </body>
+</html>

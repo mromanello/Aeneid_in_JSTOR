@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <title>Aeneid in JSTOR</title>
+  <head>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+    <script src="bower_components/bootstrap-select/js/bootstrap-select.js"></script>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/d3tip.css" rel="stylesheet">
+    <style>
+      rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+      div#text .line{
+        font-family: Merriweather,serif;
+        font-size: 11pt;
+      }
+
+      #manipula{
+        font-size: 14pt;
+        vertical-align: middle;
+        margin-left: -20px;
+      }
+
+      blockquote p{
+        font-size: 11pt;
+      }
+
+      blockquote p em{
+        background-color: #fcf8e3;
+        font-style: normal;
+      }
+      
+      /* 
+      TODO: set the max-height property at run time; 
+      */
+      .pre-scrollable{
+        max-height: 530px;
+      }
+
+      #middlecolumn{
+        padding-left: 30px;
+      }
+
+      #rightcolumn{
+        margin:0px;
+        padding-right: 10px;
+      }
+
+      div.page-header {
+        margin-top: 0;
+        margin-bottom: 5px;
+        padding-bottom: 0;
+      }
+
+      div.page-header h1{
+        margin-top: 15px;
+      }
+
+      .line{
+        line-height: 2;
+      }
+
+      .line_number{
+        font-family: sans-serif;
+        font-size: 9pt;
+        color: #808080;
+        padding-right: 10px;
+      }
+
+      text.label {
+        font-size: 8pt;
+        font-family: Consolas, courier;
+        fill: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+       <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><em>Aeneid</em> in JSTOR</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/explore">Explore</a></li>
+            <li class="active"><a href="/about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+   
+    <div class="container" style="margin-top: 70px">
+      <div class="col-md-10 col-md-offset-1">
+      <h3>Credits</h3>
+      <p><em>Aeneid in JSTOR</em> has been developed by <a target="_blank" href="https://orcid.org/0000-0002-7406-6286">Matteo Romanello</a>, and it was born out of an online conversation with Ronald Snyder (JSTOR Lab), Neil Coffee, Chris Forstall, Caitlin Diddams and James Gawley &mdash; the <a target="_blank" href="http://tesserae.caset.buffalo.edu/">Tesserae team</a>.
+      </p>
+      <p>
+      Thanks also to Dario Rodighiero and Michele Pasin for their precious advices on the visualization side of things!
+      </p>
+
+      <h3>Data</h3>
+
+      <p>The data used to build this application were made available by JSTOR under the <a href="http://about.jstor.org/service/data-for-research">Data for Research </a> scheme, except for the text of the <em>Aeneid</em> which comes from the <a target="_blank" href="https://github.com/PerseusDL/canonical-latinLit/blob/master/data/phi0690/phi003/phi0690.phi003.perseus-lat2.xml">Perseus project</a>.</p>
+
+      <h3>Feedback</h3>
+      <p>
+        (yes, please!)
+      </p>
+      <p>
+        Whether you want to report a bug or express interest for a new feature, please do so via the <a target="_blank" href="https://github.com/mromanello/Aeneid_in_JSTOR/issues">GitHub project page</a>.  
+      </p>
+      <p>
+        If you prefer to get in touch by email &mdash; e.g. to discuss a potential collaboration &mdash; you can use <code>feedback at aeneidinjstor dot eu</code>.
+      </p>
+      <!-- FAQ -->
+      <div>
+        <h3>FAQ</h3>
+        <div class="panel-group" id="accordion-faq">
+                    <!-- Question 3 -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_3">
+                    How did you extract the references?
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" id="reply_3">
+                <div class="panel-body">
+                  <p>here goes the answer</p>
+                </div>
+              </div>
+          </div>
+          <!-- Question 4 -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_4">
+                    How did you extract the quotations?
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" id="reply_4">
+                <div class="panel-body">
+                  <p>here goes the answer</p>
+                </div>
+              </div>
+          </div>
+          <!-- Question 1 -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_1">
+                    Why only the Aeneid? Are there plans to add other texts?
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" id="reply_1">
+                <div class="panel-body">
+                  <p>TODO</p>
+                </div>
+              </div>
+          </div>
+          <!-- Question 2 -->
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_2">
+                    Why a paywalled resource like JSTOR?
+                  </a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse" id="reply_2">
+                <div class="panel-body">
+                  <p>here goes the answer</p>
+                </div>
+              </div>
+          </div>
+          <!-- Question 5 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_5">
+                      I've made some annotations, why are they not displayed?
+                    </a>
+                  </h4>
+                </div>
+                <div class="panel-collapse collapse" id="reply_5">
+                  <div class="panel-body">
+                    <p>here goes the answer</p>
+                  </div>
+                </div>
+            </div>
+            <!-- Question 6 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion-faq" href="#reply_6">
+                      Why do the search results not link directly to the page in JSTOR where the quotation/reference was found?
+                    </a>
+                  </h4>
+                </div>
+                <div class="panel-collapse collapse" id="reply_6">
+                  <div class="panel-body">
+                    <p>here goes the answer</p>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>
